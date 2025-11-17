@@ -171,10 +171,6 @@ class _ProfilePageState extends State<ProfilePage> {
       context,
       listen: false,
     );
-    final profileProvider = Provider.of<ProfileProvider>(
-      context,
-      listen: false,
-    );
     final districtName = _selectedDistrict.value?.districtName;
     organizationProvider.setSelectedDistrictName(districtName);
   }
@@ -1589,11 +1585,13 @@ class _ProfilePageState extends State<ProfilePage> {
       profileProvider.setEditing(false);
       widget.displayedUserName.value = updatedUser.name;
 
-      AppUtils.showSnackBar(
-        context,
-        context.tr.profileUpdated,
-        type: SnackBarType.success,
-      );
+      if (mounted) {
+        AppUtils.showSnackBar(
+          context,
+          context.tr.profileUpdated,
+          type: SnackBarType.success,
+        );
+      }
 
      final userId = updatedUser.id;
       final isFirstTime = prefs.getBool('isProfileSaved_$userId') ?? false;
@@ -1606,12 +1604,14 @@ class _ProfilePageState extends State<ProfilePage> {
         );
       }
       } catch (e) {
-            AppUtils.showSnackBar(
-              context,
-              'Error updating profile: $e',
-              type: SnackBarType.error,
-            );
-          } finally {
+        if (mounted) {
+          AppUtils.showSnackBar(
+            context,
+            'Error updating profile: $e',
+            type: SnackBarType.error,
+          );
+        }
+      } finally {
             setState(() {
               _isSavingProfile = false;
             });

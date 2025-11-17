@@ -366,10 +366,10 @@ class ProfileProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _saveProfileUpdatedToStorage(bool value) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(profileUpdatedKey, value);
-  }
+  // Future<void> _saveProfileUpdatedToStorage(bool value) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.setBool(profileUpdatedKey, value);
+  // }
 
   Future<void> _loadProfileUpdatedFromStorage() async {
     final prefs = await SharedPreferences.getInstance();

@@ -152,9 +152,9 @@ class GrievanceProvider extends ChangeNotifier {
         complaintStatus: complaintStatus,
       );
       if (_grievances != null && _grievances!.isNotEmpty) {
-        for (int i = 0; i < _grievances!.length; i++) {
-          final grievance = _grievances![i];
-        }
+        // for (int i = 0; i < _grievances!.length; i++) {
+        //   final grievance = _grievances![i];
+        // }
       }
     } catch (e) {
       _grievanceError = e.toString();
@@ -429,7 +429,7 @@ class GrievanceProvider extends ChangeNotifier {
       }
 
       if (_grievanceDetail?.id == grievanceId) {
-        final newStatusString = newStatus.toString().split('.').last;
+        // final newStatusString = newStatus.toString().split('.').last;
       }
       notifyListeners();
     } catch (e) {

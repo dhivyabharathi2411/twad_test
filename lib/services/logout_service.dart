@@ -49,8 +49,6 @@ class LogoutService {
       final deviceToken =
           userData['devicetoken'] ?? userData['device_token'] ?? '0';
 
-      // Prepare request body with public_id
-      final requestBody = {'public_id': publicId};
 
       // Prepare additional headers
       final additionalHeaders = {

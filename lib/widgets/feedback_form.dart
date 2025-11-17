@@ -430,7 +430,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                     const SizedBox(height: 16),
                   ],
                 );
-              }).toList(),
+              }),
 
               const SizedBox(height: 20),
 

@@ -581,15 +581,6 @@ class _GrievanceStatusPageState extends State<GrievanceStatusPage> {
     _filterGrievances();
   }
 
-  void _clearFilters() {
-    _fromDate.value = null;
-    _toDate.value = null;
-    _selectedStatusFilter.value = null;
-    _searchController.clear();
-    _searchQuery.value = '';
-    _filterGrievances();
-  }
-
   Widget _buildLoadingState() {
     return _buildGrievanceListShimmer();
   }
@@ -791,8 +782,7 @@ class _GrievanceStatusPageState extends State<GrievanceStatusPage> {
                               },
                             ),
                           ),
-                        )
-                        .toList(),
+                        ),
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: AppConstants.defaultPadding,
@@ -809,129 +799,6 @@ class _GrievanceStatusPageState extends State<GrievanceStatusPage> {
       },
     );
   }
-
-  Widget _buildGrievancesList() {
-    return ValueListenableBuilder<int?>(
-      valueListenable: _selectedComplaintId,
-      builder: (context, selectedId, _) {
-        if (selectedId != null) {
-          // Show ComplaintDetailsPage inline with a back button
-          return Column(
-            children: [
-              SizedBox(height: 15),
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.arrow_back),
-                    onPressed: () => _selectedComplaintId.value = null,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    context.tr.complaintdetails,
-                    style: AppConstants.titleStyle.copyWith(fontSize: 18),
-                  ),
-                ],
-              ),
-              Expanded(child: ComplaintDetailsPage(grievanceId: selectedId)),
-            ],
-          );
-        }
-        // Show the list if no complaint is selected
-        return ValueListenableBuilder<List<GrievanceModel>>(
-          valueListenable: _paginatedGrievances,
-          builder: (context, paginated, _) {
-            return ValueListenableBuilder<List<GrievanceModel>>(
-              valueListenable: _filteredGrievances,
-              builder: (context, filtered, _) {
-                return ValueListenableBuilder<bool>(
-                  valueListenable: _isInitialized,
-                  builder: (context, isInitialized, _) {
-                    final search = _searchQuery.value;
-
-                    // Only show empty state after initialization is complete
-                    if (filtered.isEmpty && isInitialized) {
-                      return TWADEmptyState(
-                        icon: Icons.assignment_outlined,
-                        title: search.isNotEmpty
-                            ? context.tr.noResultsFound
-                            : context.tr.noGrievance,
-                        subtitle: search.isNotEmpty
-                            ? context.tr.tryAdjustingSearch
-                            : context.tr.noGrievancesSubmitted,
-                        action: search.isEmpty
-                            ? ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => NewGrievancePage(),
-                                      fullscreenDialog: true,
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.add),
-                                label: Text(context.tr.addGreivance),
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppConstants.primaryColor,
-                                  foregroundColor: Colors.white,
-                                ),
-                              )
-                            : null,
-                      );
-                    }
-
-                    if (!isInitialized) {
-                      return const SizedBox.shrink();
-                    }
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: RefreshIndicator(
-                            onRefresh: _forceRefresh,
-                            child: ListView.separated(
-                              padding: const EdgeInsets.all(
-                                AppConstants.defaultPadding,
-                              ),
-                              itemCount: paginated.length,
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(height: 16),
-                              itemBuilder: (context, index) {
-                                final grievance = paginated[index];
-                                return Consumer<AcknowledgementProvider>(
-                                  builder: (context, ackProvider, child) {
-                                    final isProcessing = ackProvider
-                                        .isDownloadProcessing(grievance.id);
-                                    return GrievanceCard(
-                                      grievance: grievance,
-                                      onDownload: isProcessing
-                                          ? null
-                                          : () => _downloadAcknowledgement(
-                                              context,
-                                              grievance.id,
-                                            ),
-                                      onWhatsApp: () =>
-                                          _showComplaintInline(grievance),
-                                      isDownloadProcessing: isProcessing,
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                        _buildPaginationControls(),
-                      ],
-                    );
-                  },
-                );
-              },
-            );
-          },
-        );
-      },
-    );
-  }
-
   void _showComplaintInline(GrievanceModel grievance) {
     _selectedComplaintId.value = grievance.id;
   }

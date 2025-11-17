@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:dio/dio.dart';
 import '../api/api_client.dart';
 import '../api/api_config.dart';
@@ -10,7 +9,6 @@ import '../data/models/recent_grievance_model.dart';
 class GrievanceService {
   final ApiClient _apiClient = ApiClient();
 
-  get _manager => null;
 
   Future<Map<String, dynamic>> getGrievanceCount() async {
     try {

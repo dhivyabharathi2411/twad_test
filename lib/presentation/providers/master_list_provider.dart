@@ -195,8 +195,6 @@ class MasterListProvider extends ChangeNotifier {
       if (response['success'] == true && response['data'] != null) {
         final data = response['data'] as List;
         _corporations = data.map<CorporationModel>((e) => CorporationModel.fromJson(e as Map<String, dynamic>)).toList();
-        for (var corp in _corporations) {
-        }
       } else {
         _corporations = [];
       }

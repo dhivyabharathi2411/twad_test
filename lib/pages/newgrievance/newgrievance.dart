@@ -1086,6 +1086,8 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
         );
         return;
       }
+      if (!mounted) return;
+      
       if (uploadProvider.uploadedFiles.isNotEmpty) {
         final currentFiles = _uploadedFiles.value;
         _uploadedFiles.value = [...currentFiles, ...validFiles];
@@ -1096,7 +1098,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
             uploadProvider.message ?? context.tr.errorUploadingFiles;
         _showSnackBar('Upload failed: $errorMsg', Colors.red);
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
 
       String errorMessage;
       if (e.toString().contains('Permission denied')) {
@@ -1216,13 +1218,15 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
           final successCount = uploadProvider.uploadedFiles.length;
           final totalCount = result.files.length;
 
-          if (successCount == totalCount) {
-            _showSnackBar(context.tr.fileuploadedsuccess, Colors.green);
-          } else {
-            _showSnackBar(
-              ' $successCount/$totalCount files uploaded. ${uploadProvider.message ?? "Some uploads failed."}',
-              Colors.orange,
-            );
+          if (mounted) {
+            if (successCount == totalCount) {
+              _showSnackBar(context.tr.fileuploadedsuccess, Colors.green);
+            } else {
+              _showSnackBar(
+                ' $successCount/$totalCount files uploaded. ${uploadProvider.message ?? "Some uploads failed."}',
+                Colors.orange,
+              );
+            }
           }
         } else {
           final errorMessage = uploadProvider.message ?? 'Upload failed';
@@ -1482,6 +1486,8 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
           listen: false,
         );
         await grievanceProvider.submitGrievance(grievanceData);
+
+        if (!mounted) return;
 
         if (grievanceProvider.submitSuccessMessage != null) {
           grievanceProvider.fetchGrievanceCount();
@@ -1762,7 +1768,6 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
                                   masterProvider.fetchTownPanchayats(value.id),
                                 ]);
                                 if (!mounted) return;
-                                for (var corp in masterProvider.corporations) {}
                               }
                             },
                     );
@@ -1820,7 +1825,6 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
                         builder: (context, masterProvider, child) {
                           final corporationItems = masterProvider.corporations;
                           if (corporationItems.isNotEmpty) {
-                            for (var corp in corporationItems) {}
                           } else {}
                           return ValueListenableBuilder<CorporationModel?>(
                             valueListenable: _selectedCorporation,
@@ -2216,8 +2220,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
                                       context,
                                       listen: false,
                                     );
-                                for (var gt in masterProvider.grievanceTypes) {}
-
+                               
                                 String assignType = value.assignType
                                     .toLowerCase()
                                     .trim();
@@ -2806,7 +2809,6 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
       builder: (context, files, _) {
         const maxFiles = 5;
         final currentCount = files.length;
-        final remainingSlots = maxFiles - currentCount;
         final isMaxReached = currentCount >= maxFiles;
 
         return Column(

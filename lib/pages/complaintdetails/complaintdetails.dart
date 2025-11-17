@@ -50,7 +50,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
     if (detail != null) {
       if (detail.processHistory.isNotEmpty) {
         for (int i = 0; i < detail.processHistory.length; i++) {
-          final ph = detail.processHistory[i];
+          // final ph = detail.processHistory[i];
         }
       } else {}
       final showFeedback = detail.complaintStatus.toLowerCase() == 'closed';
@@ -120,26 +120,28 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
     }
 
     try {
-      messenger.showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              SizedBox(
-                width: 16,
-                height: 16,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      if (mounted) {
+        messenger.showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
                 ),
-              ),
-              SizedBox(width: 16),
-              Text(context.tr.downloading),
-            ],
+                SizedBox(width: 16),
+                Text(context.tr.downloading),
+              ],
+            ),
+            backgroundColor: Colors.blue,
+            duration: Duration(seconds: 3),
           ),
-          backgroundColor: Colors.blue,
-          duration: Duration(seconds: 3),
-        ),
-      );
+        );
+      }
 
       final response = await Dio().get<List<int>>(
         fullUrl,
@@ -153,27 +155,31 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
         'fileName': fileName,
       });
 
-      messenger.hideCurrentSnackBar();
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text(context.tr.downloadComplete),
+      if (mounted) {
+        messenger.hideCurrentSnackBar();
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text(context.tr.downloadComplete),
 
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 4),
-        ),
-      );
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 4),
+          ),
+        );
+      }
       if (savedPath != null && savedPath.isNotEmpty) {
         await OpenFilex.open(savedPath);
       }
     } catch (e) {
-      messenger.hideCurrentSnackBar();
-      messenger.showSnackBar(
-        SnackBar(
-          content: Text('${context.tr.downloadFailed} ${e.toString()}'),
-          backgroundColor: Colors.red,
-          duration: Duration(seconds: 6),
-        ),
-      );
+      if (mounted) {
+        messenger.hideCurrentSnackBar();
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text('${context.tr.downloadFailed} ${e.toString()}'),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 6),
+          ),
+        );
+      }
     } finally {
       provider.setDownloadProcessing(grievanceId, false);
     }
@@ -1169,7 +1175,6 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
 
   Widget _buildActionButtons(BuildContext context, GrievanceDetail detail) {
     final bool showFeedback = detail.complaintStatus.toLowerCase() == 'closed';
-    final bool hasFiles = detail.fileLinks.isNotEmpty;
     for (var i = 0; i < detail.documents.length; i++) {}
 
     return Consumer<AcknowledgementProvider>(
@@ -1462,7 +1467,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
                   const SizedBox(height: 12),
                 ],
               );
-            }).toList(),
+            }),
           ] else ...[
             Center(
               child: Column(
