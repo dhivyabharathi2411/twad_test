@@ -118,19 +118,23 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           _register();
                           _clearFormFields(); // Clear form fields after successful registration
                           _goToSignIn();
-                          Provider.of<ProfileProvider>(
-                            context,
-                            listen: false,
-                          ).resetProfileUpdatedFlag();
+                          if (mounted) {
+                            Provider.of<ProfileProvider>(
+                              context,
+                              listen: false,
+                            ).resetProfileUpdatedFlag();
+                          }
                         } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                result['message'] ??
-                                    context.tr.otpValidationFailed,
+                          if (mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  result['message'] ??
+                                      context.tr.otpValidationFailed,
+                                ),
                               ),
-                            ),
-                          );
+                            );
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -208,7 +212,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         _showOtpDialog(phoneNumber);
         testOtp = result['data'];
       } else {
-        String errorMessage = context.tr.failedToSendOtp;
+        String errorMessage = mounted ? context.tr.failedToSendOtp : 'Failed to send OTP';
         if (authProvider.otpError != null &&
             authProvider.otpError!.isNotEmpty) {
           errorMessage = authProvider.otpError!;
@@ -243,34 +247,34 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     );
   }
 
-  void _register() {
+  void _register() async {
     if (_formKey.currentState?.validate() ?? false) {
       final authProvider = Provider.of<AuthProvider>(context, listen: false);
-      authProvider
-          .register(
-            name: nameController.text,
-            contactNo: contactController.text,
-            email: emailController.text,
-            otp: otpController.text,
-          )
-          .then((success) {
-            if (success) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(context.tr.registrationSuccessful),
-                  backgroundColor: AppConstants.accentColor,
-                ),
-              );
-              _goToSignIn();
-            } else {
-              final message =
-                  authProvider.registrationError ??
-                  context.tr.registrationFailed;
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(message)));
-            }
-          });
+      final success = await authProvider.register(
+        name: nameController.text,
+        contactNo: contactController.text,
+        email: emailController.text,
+        otp: otpController.text,
+      );
+      
+      if (!mounted) return;
+      
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(context.tr.registrationSuccessful),
+            backgroundColor: AppConstants.accentColor,
+          ),
+        );
+        _goToSignIn();
+      } else {
+        final message =
+            authProvider.registrationError ??
+            context.tr.registrationFailed;
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+      }
     }
   }
 

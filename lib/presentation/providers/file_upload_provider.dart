@@ -157,7 +157,7 @@ class UploadProvider extends ChangeNotifier {
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
-                  VideoPlayer(controller!),
+                  VideoPlayer(controller),
                   _VideoControls(controller: controller),
                 ],
               ),

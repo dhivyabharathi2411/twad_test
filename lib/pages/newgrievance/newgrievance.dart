@@ -212,8 +212,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
                             ],
                           ),
                         ),
-                      )
-                      .toList(),
+                      ),
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -452,9 +451,9 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
           _selectedDistrict.value = matchingDistrict;
           await Future.wait([
             masterProvider.fetchBlocks(matchingDistrict!.id),
-            masterProvider.fetchCorporations(matchingDistrict!.id),
-            masterProvider.fetchMunicipalities(matchingDistrict!.id),
-            masterProvider.fetchTownPanchayats(matchingDistrict!.id),
+            masterProvider.fetchCorporations(matchingDistrict.id),
+            masterProvider.fetchMunicipalities(matchingDistrict.id),
+            masterProvider.fetchTownPanchayats(matchingDistrict.id),
           ]);
           if (!mounted) return;
           if (organizationName?.isNotEmpty == true) {
@@ -494,9 +493,9 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
           _selectedDistrict.value = matchingDistrict;
           await Future.wait([
             masterProvider.fetchBlocks(matchingDistrict!.id),
-            masterProvider.fetchMunicipalities(matchingDistrict!.id),
-            masterProvider.fetchTownPanchayats(matchingDistrict!.id),
-            masterProvider.fetchCorporations(matchingDistrict!.id),
+            masterProvider.fetchMunicipalities(matchingDistrict.id),
+            masterProvider.fetchTownPanchayats(matchingDistrict.id),
+            masterProvider.fetchCorporations(matchingDistrict.id),
           ]);
           if (!mounted) return;
           final selectedOrg = savedSelections['organization'];
@@ -994,7 +993,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
         );
         await _processSelectedFile([file]);
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       _showSnackBar('Error capturing image: ${e.toString()}', Colors.red);
     }
   }
@@ -1082,7 +1081,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
             );
       } on TimeoutException catch (e) {
         _showSnackBar(
-          'Upload timeout. Please check your connection and try again.',
+          'Upload timeout. Please check your connection and try again.$e',
           Colors.red,
         );
         return;

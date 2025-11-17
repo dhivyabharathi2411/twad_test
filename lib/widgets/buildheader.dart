@@ -33,9 +33,11 @@ class _BuildHeaderState extends State<BuildHeader> {
       final logoutResult = await _logoutService.logout();
 
       // Clear all profile and dropdown data from provider and SharedPreferences
+      if (!mounted) return;
       final profileProvider = Provider.of<ProfileProvider>(context, listen: false);
       await profileProvider.clearUserData();
 
+      if (!mounted) return;
       final grievanceProvider = Provider.of<GrievanceProvider>(context, listen: false);
       grievanceProvider.resetData();
 
@@ -55,6 +57,8 @@ class _BuildHeaderState extends State<BuildHeader> {
       // You can also use prefs.clear() if you want to clear everything
       // await prefs.clear();
 
+      if (!mounted) return;
+      
       if (logoutResult['success'] == true) {
         AppUtils.showSnackBar(
           context,
@@ -74,16 +78,18 @@ class _BuildHeaderState extends State<BuildHeader> {
         (route) => false,
       );
     } catch (e) {
-      AppUtils.showSnackBar(
-        context,
-        'Logout completed with errors: ${e.toString()}',
-        type: SnackBarType.error,
-      );
+      if (mounted) {
+        AppUtils.showSnackBar(
+          context,
+          'Logout completed with errors: ${e.toString()}',
+          type: SnackBarType.error,
+        );
 
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => LoginPage()),
-        (route) => false,
-      );
+        Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => LoginPage()),
+          (route) => false,
+        );
+      }
     } finally {
       _isLoggingOut.value = false;
     }

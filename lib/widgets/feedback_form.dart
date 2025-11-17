@@ -71,7 +71,11 @@ class _FeedbackFormState extends State<FeedbackForm> {
           (q) => (provider.ratingAnswers[q['question_id']] ?? 0) == 0,
         );
         if (allZero && !provider.feedbackSubmitted) {
-          Future.delayed(Duration(milliseconds: 100), () => _submit(context));
+          Future.delayed(Duration(milliseconds: 100), () {
+            if (mounted) {
+              _submit(context);
+            }
+          });
         }
       }
     });
@@ -358,7 +362,7 @@ class _FeedbackFormState extends State<FeedbackForm> {
                     const SizedBox(height: 16),
                   ],
                 );
-              }).toList(),
+              }),
               ...provider.newFeedback.map((q) {
                 final questionId = q['question_id'];
                 final questionText = q['question'] ?? '';

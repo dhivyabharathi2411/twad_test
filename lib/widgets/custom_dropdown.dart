@@ -102,12 +102,12 @@ class _SearchableDropdownDialog<T> extends StatefulWidget {
   final String? hint;
 
   const _SearchableDropdownDialog({
-    Key? key,
+    super.key,
     required this.items,
     this.value,
     this.itemLabelBuilder,
     this.hint,
-  }) : super(key: key);
+  });
 
   @override
   State<_SearchableDropdownDialog<T>> createState() => _SearchableDropdownDialogState<T>();

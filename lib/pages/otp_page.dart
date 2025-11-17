@@ -347,6 +347,8 @@ class _OTPPageState extends State<OTPPage> {
         otp: _otpController.text,
       );
 
+      if (!mounted) return;
+      
       if (result['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -360,9 +362,11 @@ class _OTPPageState extends State<OTPPage> {
             districtId.toString() != '0' && 
             districtId.toString().isNotEmpty) {
           try {
-            final profileProvider =
-                Provider.of<ProfileProvider>(context, listen: false);
-            profileProvider.setProfileUpdatedTrue();
+            if (mounted) {
+              final profileProvider =
+                  Provider.of<ProfileProvider>(context, listen: false);
+              profileProvider.setProfileUpdatedTrue();
+            }
           } catch (e) {
             //
           }
@@ -384,20 +388,24 @@ class _OTPPageState extends State<OTPPage> {
           errorMessage = result['message'].toString();
         }
 
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(errorMessage),
+              backgroundColor: AppConstants.errorColor,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(errorMessage),
+            content: Text('Login error: $e'),
             backgroundColor: AppConstants.errorColor,
           ),
         );
       }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Login error: $e'),
-          backgroundColor: AppConstants.errorColor,
-        ),
-      );
     }
   }
   void _handleBack() {

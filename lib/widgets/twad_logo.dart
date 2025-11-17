@@ -124,7 +124,7 @@ class TWADLogo extends StatelessWidget {
 
   /// Builds the building icon with columns and dome
   Widget _buildBuildingIcon() {
-    return Container(
+    return SizedBox(
       width: size * 0.2,
       height: size * 0.15,
       child: CustomPaint(painter: BuildingPainter()),
@@ -137,14 +137,14 @@ class TWADLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         // Person in saree
-        Container(
+        SizedBox(
           width: size * 0.08,
           height: size * 0.12,
           child: CustomPaint(painter: PersonPainter()),
         ),
         const SizedBox(width: 2),
         // Hand pump
-        Container(
+        SizedBox(
           width: size * 0.06,
           height: size * 0.1,
           child: CustomPaint(painter: HandPumpPainter()),

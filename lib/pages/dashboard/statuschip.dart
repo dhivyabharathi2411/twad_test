@@ -283,7 +283,7 @@ class StatusChip extends StatelessWidget {
                           //
                         }
                         try {
-                          if (Navigator.of(context).canPop()) {
+                          if (context.mounted && Navigator.of(context).canPop()) {
                             Navigator.of(context).pop();
                           }
                         } catch (popError) {
@@ -344,24 +344,44 @@ class StatusChip extends StatelessWidget {
                       }
 
                       try {
-                        final grievanceProvider =
-                            Provider.of<GrievanceProvider>(
-                              context,
-                              listen: false,
-                            );
-                        grievanceProvider.resetReopenState();
+                        if (context.mounted) {
+                          final grievanceProvider =
+                              Provider.of<GrievanceProvider>(
+                                context,
+                                listen: false,
+                              );
+                          grievanceProvider.resetReopenState();
+                        }
                       } catch (providerError) {
                         //
                       }
                     }
                   } else {
+                    if (context.mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Row(
+                            children: [
+                              Icon(Icons.error, color: Colors.white),
+                              const SizedBox(width: 8),
+                              Text('Grievance ID not found'),
+                            ],
+                          ),
+                          backgroundColor: Colors.red,
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  }
+                } else {
+                  if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Row(
                           children: [
                             Icon(Icons.error, color: Colors.white),
                             const SizedBox(width: 8),
-                            Text('Grievance ID not found'),
+                            Text(context.tr.openGrievanceError),
                           ],
                         ),
                         backgroundColor: Colors.red,
@@ -369,20 +389,6 @@ class StatusChip extends StatelessWidget {
                       ),
                     );
                   }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Row(
-                        children: [
-                          Icon(Icons.error, color: Colors.white),
-                          const SizedBox(width: 8),
-                          Text(context.tr.openGrievanceError),
-                        ],
-                      ),
-                      backgroundColor: Colors.red,
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
                 }
               },
               style: ElevatedButton.styleFrom(

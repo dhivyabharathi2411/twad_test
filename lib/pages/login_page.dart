@@ -184,7 +184,11 @@ class _LoginPageState extends State<LoginPage> {
       final result = await authProvider.sendOtp(phoneNumber);
 
       // Hide loading dialog
-      Navigator.of(context).pop();
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+
+      if (!mounted) return;
 
       if (result['success'] == true) {
         // Navigate to OTP page
@@ -223,8 +227,10 @@ class _LoginPageState extends State<LoginPage> {
       }
     } catch (e) {
       // Hide loading dialog
-      Navigator.of(context).pop();
-      _showErrorSnackBar('Error: ${e.toString()}');
+      if (mounted) {
+        Navigator.of(context).pop();
+        _showErrorSnackBar('Error: ${e.toString()}');
+      }
     }
   }
 
