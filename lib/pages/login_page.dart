@@ -72,6 +72,7 @@ class _LoginPageState extends State<LoginPage> {
           AppConstants.appNameEnglish,
           style: AppConstants.titleStyle,
           textAlign: TextAlign.center,
+          key: Key('app_title'),
         ),
         const SizedBox(height: 8),
         Text(
@@ -85,6 +86,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildMobileInput() {
     return AppTextField(
+      key: Key('login_mobile_field'),
       controller: _mobileController,
       keyboardType: TextInputType.phone,
       hintText: context.tr.hintcontact,
@@ -111,6 +113,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       child: ElevatedButton(
+        key: Key('otp_button'),
         onPressed: _handleSignInWithOTP,
         style: AppConstants.primaryButtonStyle.copyWith(
           backgroundColor: MaterialStateProperty.all(Colors.transparent),

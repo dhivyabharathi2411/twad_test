@@ -45,6 +45,7 @@ Widget build(BuildContext context) {
             'assets/images/twad_logo.png',
             height: 120,
             fit: BoxFit.contain,
+            key: const Key('splash_logo'),
           ),
         ],
       ),
