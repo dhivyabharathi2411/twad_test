@@ -1,0 +1,17 @@
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" viewBox="0 0 512 512">
+  <!-- Background Circle -->
+  <circle cx="256" cy="256" r="256" fill="#1565C0"/>
+  
+  <!-- White Circle Background -->
+  <circle cx="256" cy="256" r="200" fill="#FFFFFF"/>
+  
+  <!-- TWAD Text - Large and Bold -->
+  <text x="256" y="220" font-family="Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" fill="#1565C0">TWAD</text>
+  
+  <!-- Subtitle -->
+  <text x="256" y="280" font-family="Arial, sans-serif" font-size="24" font-weight="normal" text-anchor="middle" fill="#1565C0">Water Board</text>
+  
+  <!-- Simple Water Drop Icon -->
+  <path d="M 256 320 C 246 320 238 312 238 302 C 238 292 246 280 256 265 C 266 280 274 292 274 302 C 274 312 266 320 256 320 Z" fill="#2196F3"/>
+</svg>
