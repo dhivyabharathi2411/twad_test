@@ -305,44 +305,41 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _buildPageHeader() {
     return Consumer<LocaleProvider>(
       builder: (context, localeProvider, child) {
-        return Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                context.tr.profilePageTitle,
-                style: AppConstants.titleStyle.copyWith(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              context.tr.profilePageTitle,
+              style: AppConstants.titleStyle.copyWith(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                  context.tr.setting,
+                  style: AppConstants.bodyTextStyle.copyWith(
+                    fontSize: 12,
+                    color: AppConstants.textSecondaryColor,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Text(
-                    context.tr.setting,
-                    style: AppConstants.bodyTextStyle.copyWith(
-                      fontSize: 12,
-                      color: AppConstants.textSecondaryColor,
-                    ),
+                const SizedBox(width: 8),
+                const Icon(Icons.chevron_right, size: 16, color: Colors.grey),
+                const SizedBox(width: 8),
+                Text(
+                  context.tr.profileSettings,
+                  style: AppConstants.bodyTextStyle.copyWith(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    color: AppConstants.primaryColor,
                   ),
-
-                  const SizedBox(width: 8),
-                  const Icon(Icons.chevron_right, size: 16, color: Colors.grey),
-                  const SizedBox(width: 8),
-                  Text(
-                    context.tr.profileSettings,
-                    style: AppConstants.bodyTextStyle.copyWith(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: AppConstants.primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-            ],
-          ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
         );
       },
     );
@@ -763,12 +760,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ].map((org) => context.tr.translate(org)).toList();
                     final selectedOrganization =
                         profileProvider.selectedOrganization;
-                    final SafeOrganization = selectedOrganization.isNotEmpty
+                    final safeOrganization = selectedOrganization.isNotEmpty
                         ? context.tr.translate(selectedOrganization)
                         : null;
                     return ProfileDropdownField(
                       label: context.tr.beneficiaryLabel,
-                      value: SafeOrganization,
+                      value: safeOrganization,
                       hint: context.tr.warningOrganization,
                       items: orgItems,
                       isEnabled: profileProvider.isEditing,

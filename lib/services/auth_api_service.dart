@@ -204,13 +204,12 @@ class AuthApiService {
           dotenv.env['API_ENCRYPT_ENABLED']?.toLowerCase() == 'true';
 
       // Encrypt the OTP before sending
-      String encryptedOtp = otp;
       if (encryptEnabled) {
         final encryptionResult = await SimpleEncryption.instance.encryptOtp(
           otp,
         );
         if (encryptionResult['success'] == 'true') {
-          encryptedOtp = encryptionResult['data'] ?? otp;
+          // encryptedOtp = encryptionResult['data'] ?? otp;
         } else {}
       }
 

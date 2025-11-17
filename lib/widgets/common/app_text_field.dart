@@ -141,7 +141,7 @@ class AppPasswordField extends StatefulWidget {
 }
 
 class _AppPasswordFieldState extends State<AppPasswordField> {
-  bool _isObscured = true;
+  final bool _isObscured = true;
 
   @override
   Widget build(BuildContext context) {

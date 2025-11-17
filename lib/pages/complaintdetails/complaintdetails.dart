@@ -120,28 +120,28 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
     }
 
     try {
-      if (mounted) {
-        messenger.showSnackBar(
-          SnackBar(
-            content: Row(
-              children: [
-                SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  ),
+      if (!mounted) return;
+      
+      messenger.showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
-                SizedBox(width: 16),
-                Text(context.tr.downloading),
-              ],
-            ),
-            backgroundColor: Colors.blue,
-            duration: Duration(seconds: 3),
+              ),
+              SizedBox(width: 16),
+              Text(context.tr.downloading),
+            ],
           ),
-        );
-      }
+          backgroundColor: Colors.blue,
+          duration: Duration(seconds: 3),
+        ),
+      );
 
       final response = await Dio().get<List<int>>(
         fullUrl,
@@ -155,31 +155,32 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
         'fileName': fileName,
       });
 
-      if (mounted) {
-        messenger.hideCurrentSnackBar();
-        messenger.showSnackBar(
-          SnackBar(
-            content: Text(context.tr.downloadComplete),
+      if (!mounted) return;
+      
+      messenger.hideCurrentSnackBar();
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(context.tr.downloadComplete),
 
-            backgroundColor: Colors.green,
-            duration: Duration(seconds: 4),
-          ),
-        );
-      }
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 4),
+        ),
+      );
+      
       if (savedPath != null && savedPath.isNotEmpty) {
         await OpenFilex.open(savedPath);
       }
     } catch (e) {
-      if (mounted) {
-        messenger.hideCurrentSnackBar();
-        messenger.showSnackBar(
-          SnackBar(
-            content: Text('${context.tr.downloadFailed} ${e.toString()}'),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 6),
-          ),
-        );
-      }
+      if (!mounted) return;
+      
+      messenger.hideCurrentSnackBar();
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text('${context.tr.downloadFailed} ${e.toString()}'),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 6),
+        ),
+      );
     } finally {
       provider.setDownloadProcessing(grievanceId, false);
     }
@@ -371,6 +372,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
         return;
       } catch (e) {
         if (i == potentialUrls.length - 1) {
+          if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(
@@ -517,6 +519,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
         'fileName': fileName,
       });
 
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -534,6 +537,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
         ),
       );
     } catch (e) {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -605,6 +609,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
     if (await localFile.exists()) {
       try {
         final result = await OpenFilex.open(localFile.path);
+        if (!context.mounted) return;
         if (result.type != ResultType.done) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -615,6 +620,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
           );
         }
       } catch (e) {
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${context.tr.fileOpenFailed}: ${e.toString()}'),
@@ -625,6 +631,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
       return;
     }
     try {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
@@ -653,6 +660,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
       final bytes = Uint8List.fromList(response.data!);
       await localFile.writeAsBytes(bytes);
 
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       final fileSizeKB = (bytes.length / 1024).round();
       final fileSizeMB = (fileSizeKB / 1024).toStringAsFixed(1);
@@ -669,6 +677,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
       );
       try {
         final result = await OpenFilex.open(localFile.path);
+        if (!context.mounted) return;
         if (result.type != ResultType.done) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -685,6 +694,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
           );
         }
       } catch (openError) {
+        if (!context.mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('File downloaded but could not open: $openError'),
@@ -694,6 +704,7 @@ class _ComplaintDetailsPageState extends State<ComplaintDetailsPage>
         );
       }
     } catch (e) {
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
       String errorMessage;

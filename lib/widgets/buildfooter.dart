@@ -6,10 +6,10 @@ class Buildfooter extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   const Buildfooter({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   void _handleTap(BuildContext context, int index) {
     onTap(index);
@@ -31,13 +31,13 @@ class Buildfooter extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
             gradient: const LinearGradient(
-              colors: [Color(0xFFFe4e9f6), Color(0xE6FFFFFF)],
+              colors: [Color(0xFF4e9f6f6), Color(0xE6FFFFFF)],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
             ),
             boxShadow: const [
               BoxShadow(
-                color: Color(0x24939393),
+                color: Color(0x24939393F),
                 offset: Offset(0, -5),
                 blurRadius: 30,
               ),

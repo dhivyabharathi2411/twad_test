@@ -120,7 +120,7 @@ class AppTranslations {
   String get allowedDocumenttypes => _manager.translate('allowedDocumenttypes');
   String get declaratin => _manager.translate('declaratin');
   String get submitButton => _manager.translate('submitButton');
-  String get UploadedFiles => _manager.translate('UploadedFiles');
+  String get uploadedFiles => _manager.translate('UploadedFiles');
   String get grievanceTypeLabel => _manager.translate('grievanceTypeLabel');
   String get filedeletedsuccess => _manager.translate('filedeletedsuccess');
   String get fileuploadedsuccess => _manager.translate('fileuploadedsuccess');

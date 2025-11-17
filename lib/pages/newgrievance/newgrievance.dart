@@ -2311,7 +2311,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
                   children: [
                     const SizedBox(height: 15),
                     Text(
-                      context.tr.UploadedFiles,
+                      context.tr.uploadedFiles,
                       style: AppConstants.bodyTextStyle.copyWith(
                         fontWeight: FontWeight.w500,
                       ),

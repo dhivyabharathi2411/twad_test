@@ -13,8 +13,7 @@ import '../utils/app_utils.dart';
 class BuildHeader extends StatefulWidget implements PreferredSizeWidget {
   final ValueNotifier<String> displayedUserName;
 
-  const BuildHeader({Key? key, required this.displayedUserName})
-    : super(key: key);
+  const BuildHeader({super.key, required this.displayedUserName});
 
   @override
   _BuildHeaderState createState() => _BuildHeaderState();
@@ -28,9 +27,9 @@ class _BuildHeaderState extends State<BuildHeader> {
 
   Future<void> _performLogout() async {
     _isLoggingOut.value = true;
-    final LogoutService _logoutService = LogoutService();
+    final LogoutService logoutService = LogoutService();
     try {
-      final logoutResult = await _logoutService.logout();
+      final logoutResult = await logoutService.logout();
 
       // Clear all profile and dropdown data from provider and SharedPreferences
       if (!mounted) return;

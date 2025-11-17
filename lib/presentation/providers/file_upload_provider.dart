@@ -158,7 +158,7 @@ class UploadProvider extends ChangeNotifier {
                 alignment: Alignment.bottomCenter,
                 children: [
                   VideoPlayer(controller),
-                  _VideoControls(controller: controller),
+                  _videoControls(controller: controller),
                 ],
               ),
             ),
@@ -243,7 +243,7 @@ class UploadProvider extends ChangeNotifier {
 
   // Small helper widget for video controls used above
   // Place inside the same class (UploadProvider) as a private StatelessWidget-like method
-  Widget _VideoControls({required VideoPlayerController controller}) {
+  Widget _videoControls({required VideoPlayerController controller}) {
     return StatefulBuilder(
       builder: (context, setState) {
         return SizedBox(

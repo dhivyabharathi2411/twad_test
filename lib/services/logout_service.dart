@@ -61,7 +61,7 @@ class LogoutService {
       };
 
       // Make logout API call
-      final response = await _apiClient.get(
+      await _apiClient.get(
         AppConfig.logoutEndpoint,
         params: additionalHeaders,
       );

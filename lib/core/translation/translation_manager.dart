@@ -506,7 +506,7 @@ class TranslationManager {
   };
 
   // 🚀 Dynamic translations from API (merged with static)
-  Map<String, Map<String, String>> _dynamicTranslations = {};
+  final Map<String, Map<String, String>> _dynamicTranslations = {};
   Map<String, Map<String, String>> _mergedTranslations = {};
 
   // Current language
