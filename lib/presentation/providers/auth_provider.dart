@@ -466,6 +466,7 @@ class AuthProvider with ChangeNotifier {
         }
       }
     } catch (e) {
+      //
     }
   }
 }

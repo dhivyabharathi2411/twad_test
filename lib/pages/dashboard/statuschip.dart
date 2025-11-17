@@ -35,7 +35,8 @@ class StatusChip extends StatelessWidget {
             if (recentGrievance != null) {
               currentStatus = recentGrievance.status;
             }
-          } catch (e) {}
+          } catch (e) {//
+          }
         }
         return Container(
           key: ValueKey(
@@ -249,6 +250,7 @@ class StatusChip extends StatelessWidget {
                         } else {
                         }
                       } catch (navError) {
+                        //
                       }
 
                       if (grievanceProvider.reopenSuccessMessage != null) {
@@ -278,12 +280,14 @@ class StatusChip extends StatelessWidget {
                             );
                           }
                         } catch (snackError) {
+                          //
                         }
                         try {
                           if (Navigator.of(context).canPop()) {
                             Navigator.of(context).pop();
                           }
                         } catch (popError) {
+                          //
                         }
                       
                         grievanceProvider.resetReopenState();
@@ -317,6 +321,7 @@ class StatusChip extends StatelessWidget {
                           navigatorKey.currentState!.pop();
                         }
                       } catch (navError) {
+                        //
                       }
                       try {
                         if (context.mounted) {
@@ -334,7 +339,9 @@ class StatusChip extends StatelessWidget {
                             ),
                           );
                         }
-                      } catch (snackError) {}
+                      } catch (snackError) {
+                        //
+                      }
 
                       try {
                         final grievanceProvider =
@@ -343,7 +350,9 @@ class StatusChip extends StatelessWidget {
                               listen: false,
                             );
                         grievanceProvider.resetReopenState();
-                      } catch (providerError) {}
+                      } catch (providerError) {
+                        //
+                      }
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

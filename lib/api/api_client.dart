@@ -171,6 +171,7 @@ class ApiClient implements IApiClient {
               }
             }
           } catch (e) {
+            //
           }
 
           return handler.next(response);
@@ -456,6 +457,7 @@ class ApiClient implements IApiClient {
       }
       
     } catch (e) {
+      //
     }
   }
   void clearCache() {
@@ -469,6 +471,7 @@ class ApiClient implements IApiClient {
       try {
         _onInvalidTokenCallback!();
       } catch (e) {
+        //
       }
     } else {
     }

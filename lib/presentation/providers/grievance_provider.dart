@@ -220,6 +220,7 @@ class GrievanceProvider extends ChangeNotifier {
             try {
               newStatus = parseGrievanceStatus(data['new_status'].toString());
             } catch (e) {
+              //
             }
           }
         }
@@ -229,6 +230,7 @@ class GrievanceProvider extends ChangeNotifier {
         try {
           serverGrievance = _grievances?.firstWhere((g) => g.id == grievanceId);
         } catch (e) {
+          //
         }
 
         if (serverGrievance != null) {
@@ -241,6 +243,7 @@ class GrievanceProvider extends ChangeNotifier {
             (g) => g.id == grievanceId,
           );
         } catch (e) {
+          //
         }
 
         if (updatedRecentGrievance != null) {
@@ -252,6 +255,7 @@ class GrievanceProvider extends ChangeNotifier {
             (g) => g.id == grievanceId,
           );
         } catch (e) {
+          //
         }
 
         if (updatedAllGrievance != null) {
@@ -323,6 +327,7 @@ class GrievanceProvider extends ChangeNotifier {
       ]);
       notifyListeners();
     } catch (e) {
+      //
     }
   }
 
@@ -428,6 +433,7 @@ class GrievanceProvider extends ChangeNotifier {
       }
       notifyListeners();
     } catch (e) {
+      //
     }
   }
 

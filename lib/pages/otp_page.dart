@@ -364,6 +364,7 @@ class _OTPPageState extends State<OTPPage> {
                 Provider.of<ProfileProvider>(context, listen: false);
             profileProvider.setProfileUpdatedTrue();
           } catch (e) {
+            //
           }
         } else {
         }

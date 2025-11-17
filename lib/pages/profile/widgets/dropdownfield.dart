@@ -187,19 +187,45 @@ class _SearchableDropdownDialogState<T>
       try {
         final dynamic obj = item;
         final searchableFields = <String>[];
-        try { if (obj.grievanceType != null) searchableFields.add(obj.grievanceType.toString()); } catch (e) {}
-        try { if (obj.zoneName != null) searchableFields.add(obj.zoneName.toString()); } catch (e) {}
-        try { if (obj.zoneWardName != null) searchableFields.add(obj.zoneWardName.toString()); } catch (e) {}
-        try { if (obj.districtName != null) searchableFields.add(obj.districtName.toString()); } catch (e) {}
-        try { if (obj.corporationName != null) searchableFields.add(obj.corporationName.toString()); } catch (e) {}
-        try { if (obj.complaintType != null) searchableFields.add(obj.complaintType.toString()); } catch (e) {}
-        try { if (obj.subComplaintType != null) searchableFields.add(obj.subComplaintType.toString()); } catch (e) {}
-        try { if (obj.blockName != null) searchableFields.add(obj.blockName.toString()); } catch (e) {}
-        try { if (obj.villageName != null) searchableFields.add(obj.villageName.toString()); } catch (e) {}
-        try { if (obj.habitationName != null) searchableFields.add(obj.habitationName.toString()); } catch (e) {}
-        try { if (obj.municipalityName != null) searchableFields.add(obj.municipalityName.toString()); } catch (e) {}
-        try { if (obj.townPanchayatName != null) searchableFields.add(obj.townPanchayatName.toString()); } catch (e) {}
-        try { if (obj.wardName != null) searchableFields.add(obj.wardName.toString()); } catch (e) {}
+        try { if (obj.grievanceType != null) searchableFields.add(obj.grievanceType.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.zoneName != null) searchableFields.add(obj.zoneName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.zoneWardName != null) searchableFields.add(obj.zoneWardName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.districtName != null) searchableFields.add(obj.districtName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.corporationName != null) searchableFields.add(obj.corporationName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.complaintType != null) searchableFields.add(obj.complaintType.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.subComplaintType != null) searchableFields.add(obj.subComplaintType.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.blockName != null) searchableFields.add(obj.blockName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.villageName != null) searchableFields.add(obj.villageName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.habitationName != null) searchableFields.add(obj.habitationName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.municipalityName != null) searchableFields.add(obj.municipalityName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.townPanchayatName != null) searchableFields.add(obj.townPanchayatName.toString()); } catch (e) {
+          //
+        }
+        try { if (obj.wardName != null) searchableFields.add(obj.wardName.toString()); } catch (e) {
+          //
+        }
         
         for (final field in searchableFields) {
           if (field.toLowerCase().contains(searchLower)) {

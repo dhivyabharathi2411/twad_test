@@ -349,7 +349,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
       );
     } catch (e) {
       _showSnackBar('Error getting location: ${e.toString()}', Colors.red);
-      ;
+    
     } finally {
       _isGettingLocation.value = false;
     }

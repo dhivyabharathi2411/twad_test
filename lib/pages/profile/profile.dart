@@ -1641,7 +1641,9 @@ class _ProfilePageState extends State<ProfilePage> {
       } else if (orgName == 'PANCHAYAT') {
         _prefillBlockAndCascade(masterProvider, user);
       }
-    } catch (e) {}
+    } catch (e) {
+      //
+    }
   }
 
   void _setProfileCorporationData(
