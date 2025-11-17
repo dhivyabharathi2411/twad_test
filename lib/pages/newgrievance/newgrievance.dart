@@ -1502,7 +1502,16 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
           uploadProvider.fileLinks.clear();
           uploadProvider.relativePaths.clear();
 
-          _showSnackBar(context.tr.newGrievanceSubmitted, Colors.green);
+          ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  context.tr.newGrievanceSubmitted,
+                  key: Key('grievance_success_message'), 
+                ),
+                backgroundColor: Colors.green,
+              ),
+            );
+
           Navigator.of(context).pop();
         } else if (grievanceProvider.submitError != null) {
           _showSnackBar(grievanceProvider.submitError!, Colors.red);
@@ -1573,6 +1582,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
             ),
             Text(
               context.tr.newgrievance,
+              key: Key('new_grievance'),
               style: AppConstants.titleStyle.copyWith(fontSize: 24),
             ),
           ],
@@ -2943,6 +2953,7 @@ class _NewGrievancePageState extends State<NewGrievancePage> {
                       grievanceProvider.isSubmitting || hasMaintenance;
 
                   return ElevatedButton(
+                    key: Key('submit_newgrievance_button'),
                     onPressed: isDisabled ? null : _submitForm,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: isDisabled

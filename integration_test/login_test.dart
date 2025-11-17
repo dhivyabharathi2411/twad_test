@@ -8,7 +8,7 @@ void main() {
 
     testWidgets('Splash -> Login -> Dashboard -> Logout', (tester) async {
       app.main();
-      await tester.pumpAndSettle(const Duration(seconds: 3));
+      await tester.pumpAndSettle();
       expect(find.byKey(Key('splash_logo')), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 3));
       expect(find.byKey(Key('app_title')), findsOneWidget);
