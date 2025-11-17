@@ -234,6 +234,7 @@ class _OTPPageState extends State<OTPPage> {
                         )
                       : Text(
                           context.tr.signin,
+                          key: Key('signin_button'),
                           style: AppConstants.buttonTextStyle.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,

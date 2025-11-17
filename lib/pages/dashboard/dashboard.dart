@@ -166,6 +166,7 @@ class _DashboardPageState extends State<DashboardPage> with RouteAware {
               width: double.infinity,
               padding: const EdgeInsets.all(10),
               child: Text(
+                key: Key('welcome_text'),
                 '${context.tr.welcome} $name',
                 style: AppConstants.titleStyle.copyWith(
                   fontSize: 24,
