@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-import 'package:twad/main.dart' as app;
+import 'package:twad/test_main.dart' as test_app;
 
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
     testWidgets('Splash -> Login -> Dashboard -> Logout', (tester) async {
-      app.main();
-      await tester.pump();               
-      await tester.pump(const Duration(seconds: 1)); 
+      test_app.testMain();
+      await tester.pumpAndSettle();
       expect(find.byKey(Key('splash_logo')), findsOneWidget);
       await tester.pumpAndSettle(const Duration(seconds: 3));
       expect(find.byKey(Key('app_title')), findsOneWidget);
