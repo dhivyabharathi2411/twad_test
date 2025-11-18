@@ -47,5 +47,6 @@ jobs:
           emulator-boot-timeout: 300
           script: |
             flutter devices
-            flutter drive --driver=integration_test/driver.dart --target=integration_test/login_test.dart
+            flutter drive --driver=integration_test/driver.dart --target=integration_test/login_test.dart 
+            flutter drive --driver=integration_test/driver.dart --target=integration_test/create_grievance_test.dart
 
