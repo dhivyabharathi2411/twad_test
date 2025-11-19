@@ -9,8 +9,8 @@ void main() {
     testWidgets('Splash -> Login -> Dashboard -> Logout', (tester) async {
       test_app.testMain();
       await tester.pumpAndSettle();
-      // expect(find.byKey(Key('splash_logo')), findsOneWidget);
-      // await tester.pumpAndSettle(const Duration(seconds: 3));
+      expect(find.byKey(Key('splash_logo')), findsOneWidget);
+      await tester.pumpAndSettle(const Duration(seconds: 3));
       expect(find.byKey(Key('app_title')), findsOneWidget);
       await tester.enterText(find.byKey(Key('login_mobile_field')), '8787878787');
       await tester.tap(find.byKey(Key('otp_button')),);

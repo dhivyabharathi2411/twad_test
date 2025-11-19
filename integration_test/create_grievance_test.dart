@@ -17,7 +17,6 @@ void main() {
     expect(find.byKey(Key('new_grievance')),findsOneWidget);
     await tester.pumpAndSettle();
 
-
     await tester.tap(find.byKey(Key('submit_grievance_button')));
     await tester.pumpAndSettle();
 
