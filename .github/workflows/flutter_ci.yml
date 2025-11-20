@@ -48,4 +48,5 @@ jobs:
           script: |
             flutter devices
             flutter test test/auth_service_test.dart
+            flutter test test/create_grievance_test.dart
 
