@@ -1,10 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:twad/services/api_setup.dart';
 import 'package:twad/services/login_service.dart';
 
 void main() {
   late LoginService loginService;
 
-  setUp(() {
+  setUp(() async {
+     await ApiSetup.initializeApiClient();
     loginService = LoginService();
   });
 
