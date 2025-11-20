@@ -7,16 +7,12 @@ import 'package:twad/utils/simple_encryption.dart';
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  try {
-    await dotenv.load(fileName: ".env");
-  } catch (e) {
-    dotenv.testLoad(fileInput: '''
-    ENCRYPTION_KEY=smar@nexusglobalsolutions1234567
-    ENCRYPTION_IV=smar@nexus123456
-    API_ENCRYPT_ENABLED=false
-    API_BASE_URL=https://api.tanneer.com/api
-    ''');
-  }
+  dotenv.testLoad(fileInput: '''
+ENCRYPTION_KEY=smar@nexusglobalsolutions1234567
+ENCRYPTION_IV=smar@nexus123456
+API_ENCRYPT_ENABLED=false
+API_BASE_URL=https://api.tanneer.com/api
+''');
 
   late GrievanceService grievanceService;
   const String testContactNumber = '8787878787'; 
