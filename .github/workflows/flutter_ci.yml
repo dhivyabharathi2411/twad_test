@@ -47,5 +47,5 @@ jobs:
           emulator-boot-timeout: 300
           script: |
             flutter devices
-            flutter test test/login_service_test.dart
+            flutter test test/auth_service_test.dart
 
