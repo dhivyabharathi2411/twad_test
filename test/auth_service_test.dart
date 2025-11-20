@@ -6,7 +6,16 @@ import 'package:twad/services/login_service.dart';
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  await dotenv.load(fileName: ".env"); 
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    dotenv.testLoad(fileInput: '''
+ENCRYPTION_KEY=smar@nexusglobalsolutions1234567
+ENCRYPTION_IV=smar@nexus123456
+API_ENCRYPT_ENABLED=false
+API_BASE_URL=https://api.tanneer.com/api
+''');
+  } 
 
   late LoginService loginService;
 
