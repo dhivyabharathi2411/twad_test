@@ -24,7 +24,7 @@ void main() {
       expect(result.message, 'Invalid OTP format');
     });
 
-    test('Complete login flow returns a LoginResult object', () async {
+    test('Complete login flow returns a LoginResult', () async {
       final result = await loginService.completeLoginFlow(
         phoneNumber: '8787878787',
         otp: '123456', 
