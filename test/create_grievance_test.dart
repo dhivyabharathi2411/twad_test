@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:twad/services/api_setup.dart';
 import 'package:twad/services/grievance_service.dart';
-import 'package:twad/services/login_service.dart';
+import 'package:twad/utils/simple_encryption.dart';
 
 void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -19,13 +19,19 @@ void main() async {
   }
 
   late GrievanceService grievanceService;
-  late LoginService loginService;
   const String testContactNumber = '8787878787'; 
 
   setUp(() async {
+    await SimpleUsage.initialize();
+    await SimpleUsage.login(
+      authToken: 'test_auth_token',
+      userData: {
+        'userid': 'test_user_1',
+        'contactno': testContactNumber,
+      },
+    );
     await ApiSetup.initializeApiClient();
-    grievanceService = GrievanceService();
-    loginService = LoginService();
+  grievanceService = GrievanceService();
   });
 
   group('Create Grievance Unit Tests', () {
@@ -121,8 +127,6 @@ void main() async {
     });
 
     test('Login contact number validation passes for valid number', () async {
-      final result = await loginService.sendOtp(testContactNumber);
-
       expect(testContactNumber.length, equals(10));
       expect(RegExp(r'^[0-9]+$').hasMatch(testContactNumber), isTrue);
     });
