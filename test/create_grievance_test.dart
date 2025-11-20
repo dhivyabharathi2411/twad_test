@@ -8,11 +8,11 @@ void main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   dotenv.testLoad(fileInput: '''
-ENCRYPTION_KEY=smar@nexusglobalsolutions1234567
-ENCRYPTION_IV=smar@nexus123456
-API_ENCRYPT_ENABLED=false
-API_BASE_URL=https://api.tanneer.com/api
-''');
+    ENCRYPTION_KEY=smar@nexusglobalsolutions1234567
+    ENCRYPTION_IV=smar@nexus123456
+    API_ENCRYPT_ENABLED=false
+    API_BASE_URL=https://api.tanneer.com/api
+    ''');
 
   late GrievanceService grievanceService;
   const String testContactNumber = '8787878787'; 
@@ -31,7 +31,24 @@ API_BASE_URL=https://api.tanneer.com/api
   });
 
   group('Create Grievance Unit Tests', () {
+    test('verify login setup works', () async {
+      final userData = await SimpleUsage.getCurrentUser();
+      expect(userData, isNotNull);
+      expect(userData!['userid'], equals('test_user_1'));
+      expect(userData['contactno'], equals(testContactNumber));
+    });
+
     test('createGrievance returns success for valid grievance data', () async {
+      await SimpleUsage.login(
+        authToken: 'test_auth_token',
+        userData: {
+          'userid': 'test_user_1',
+          'contactno': testContactNumber,
+        },
+      );
+      
+      final userData = await SimpleUsage.getCurrentUser();
+      expect(userData, isNotNull, reason: 'User should be logged in before creating grievance');
       final validGrievanceData = {
         "operator_id": 0,
         "is_edit_public_details": 1,
@@ -128,6 +145,15 @@ API_BASE_URL=https://api.tanneer.com/api
     });
 
     test('createGrievance with different priorities', () async {
+      // Ensure user is logged in for this specific test
+      await SimpleUsage.login(
+        authToken: 'test_auth_token',
+        userData: {
+          'userid': 'test_user_1',
+          'contactno': testContactNumber,
+        },
+      );
+      
       final priorities = ['Low', 'Medium', 'High', 'Critical'];
       
       for (final priority in priorities) {
