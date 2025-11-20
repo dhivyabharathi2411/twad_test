@@ -1,18 +1,23 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart'; 
 import 'package:twad/services/api_setup.dart';
 import 'package:twad/services/login_service.dart';
 
-void main() {
+void main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  await dotenv.load(fileName: ".env"); 
+
   late LoginService loginService;
 
   setUp(() async {
-     await ApiSetup.initializeApiClient();
+    await ApiSetup.initializeApiClient();
     loginService = LoginService();
   });
 
   group('Login Logic Unit Tests', () {
     test('Phone number validation fails for invalid number', () async {
-      final result = await loginService.sendOtp('123'); 
+      final result = await loginService.sendOtp('123');
       expect(result.isSuccess, false);
       expect(result.message, 'Invalid phone number format');
     });
@@ -20,7 +25,7 @@ void main() {
     test('OTP validation fails for invalid OTP', () async {
       final result = await loginService.verifyOtp(
         phoneNumber: '8787878787',
-        otp: '12ab', 
+        otp: '12ab',
       );
       expect(result.isSuccess, false);
       expect(result.message, 'Invalid OTP format');
@@ -29,7 +34,7 @@ void main() {
     test('Complete login flow returns a LoginResult', () async {
       final result = await loginService.completeLoginFlow(
         phoneNumber: '8787878787',
-        otp: '123456', 
+        otp: '123456',
       );
       expect(result, isA<LoginResult>());
     });
