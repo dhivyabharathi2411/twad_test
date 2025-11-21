@@ -26,11 +26,6 @@ void main() async {
         'contactno': testContactNumber,
       },
     );
-     await SimpleEncryption.instance.storeToken('test_auth_token');
-    await SimpleEncryption.instance.storeUserData({
-      'userid': 'test_user_1',
-      'contactno': testContactNumber,
-    });
     await ApiSetup.initializeApiClient();
   grievanceService = GrievanceService();
   });
